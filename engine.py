@@ -6,7 +6,7 @@ import re
 class engine(gui):
     def __init__(self, window):
         super().__init__(window)
-        self.fieldText.trace('w', lambda *args: self.fieldTextfunc())
+        self.fieldText.trace('w', lambda *args: self.fieldTextfunc(window))
         self.m_btn_array = [self.m1btn, self.m2btn, self.m3btn, self.m4btn,\
                             self.m5btn, self.m6btn, self.m7btn, self.m8btn]
         self.m_lbl_array = [self.m1lbl, self.m2lbl, self.m3lbl, self.m4lbl,\
@@ -25,8 +25,8 @@ class engine(gui):
     def buttonClick(self, i):
         a = str((int(self.btnArray[i]['text'])+1)%2)
         self.btnArray[i].config(text = a)
-        if self.btnArray[i]['fg'] == 'red':
-            self.btnArray[i].config(fg = 'black')
+        if self.btnArray[i]['bg'] == '#EB4641':
+            self.btnArray[i].config(bg = '#7BD03A')
             self.errorEnt.delete(0, tk.END)
         
         string = ''
@@ -41,11 +41,11 @@ class engine(gui):
             self.errorEnt.grid()        
             self.errorEnt.delete(0,tk.END)
             self.errorEnt.insert(0,str(value))
-            self.btnArray[value-1].config(fg = 'red')
+            self.btnArray[value-1].config(bg = '#EB4641')
             ans = mb.askyesno(title = 'Ошибка', message = 'Ошибка в {} бите, исправить?'.format(value))
             if ans == True:
                 self.errorEnt.delete(0,tk.END)
-                self.btnArray[value-1].config(text = str((int(self.btnArray[value-1]['text'])+1)%2), fg = 'black')
+                self.btnArray[value-1].config(text = str((int(self.btnArray[value-1]['text'])+1)%2), bg = '#7BD03A')
                 for i in self.c_ent_array:
                     i.delete(0, tk.END)
                     i.insert(0,'0')
@@ -54,15 +54,17 @@ class engine(gui):
                 pass  
         
 
-    def fieldTextfunc(self):
+    def fieldTextfunc(self, window):
+        
         if 0 < len(self.entryField.get()) <= 8:
             a = re.findall('[^01]', self.entryField.get())
             if len(a) == 0:
+                window.geometry('440x220')
                 self.p_number = self.pFind(self.entryField.get())
                 for i in range(len(self.entryField.get())):
                     self.m_btn_array[i].grid()
                     self.m_lbl_array[i].grid()
-                    self.m_btn_array[i].config(text = self.entryField.get()[i], fg = 'black')
+                    self.m_btn_array[i].config(text = self.entryField.get()[i], bg = '#7BD03A')
                 
                 self.errorText.grid()
                 self.errorEnt.grid_remove()
@@ -71,7 +73,7 @@ class engine(gui):
                 for i in range(len(self.p_number)):
                     self.p_lbl_array[i].grid()
                     self.p_btn_array[i].grid()
-                    self.p_btn_array[i].config(text = self.p_number[i], fg = 'black')
+                    self.p_btn_array[i].config(text = self.p_number[i], bg = '#7BD03A')
                     self.c_lbl_array[i].grid()
                     self.c_ent_array[i].grid()
                 for i in range(len(self.p_number)):
@@ -97,6 +99,7 @@ class engine(gui):
                     i.grid_remove()
 
         elif len(self.entryField.get()) == 0:
+            window.geometry('380x100')
             for i in self.elementArrow:
                 i.grid_remove()
         else:
