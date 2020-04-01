@@ -5,7 +5,7 @@ class gui(tk.Frame):
         super().__init__(window)
         window.title('Алгоритм Хэмминга')
         window.geometry('440x220')
-        # window.resizable(False, False)
+        window.resizable(False, False)
 
         self.fieldText = tk.StringVar()
         self.entryField = tk.Entry(window, font = 'Arial 12', textvariable = self.fieldText)
@@ -61,7 +61,7 @@ class gui(tk.Frame):
         self.entryText.grid(row = 0, column = 0, columnspan = 11)
         self.entryField.grid(row = 1, column = 0, columnspan = 11, sticky = 'nw', pady = 6, padx = 10)
 
-        self.emptylbl = tk.Label(window, font = 'Arial 14')
+        # self.emptylbl = tk.Label(window, font = 'Arial 14')
 
         self.p1lbl.grid(row = 2, column = 0)
         self.p2lbl.grid(row = 2, column = 1)
@@ -97,7 +97,7 @@ class gui(tk.Frame):
         self.c3ent.grid(row = 5, column = 5, ipadx = 6)
         self.c4lbl.grid(row = 5, column = 6, ipadx = 6)
         self.c4ent.grid(row = 5, column = 7, ipadx = 6)
-        self.emptylbl.grid(row = 5, column = 8, columnspan = 4)
+        # self.emptylbl.grid(row = 5, column = 8, columnspan = 4)
 
         self.errorlbl.grid(row = 5, column = 8)
         self.errorEnt.grid(row = 5, column = 9)
